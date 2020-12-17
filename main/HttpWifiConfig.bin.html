@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<title>Wifi Config</title>
+	</head>
+	<body>
+		<h1>WiFi Config</h1>
+		<form method="post">
+			<p>[MESSAGE]</p>
+			<table>
+				<tr>
+					<td>
+						Avaiable SSIDs:
+					</td>
+					<td>
+						<script>
+							function setSsid(element){
+
+								var ssidInput = document.getElementById('ssidInput');
+								ssidInput.value = element.value;
+
+								var option = element.options[element.selectedIndex];
+								var authMode = option.getAttribute('auth-mode');
+
+								var authModeSelect = document.getElementById('authMode');
+								authModeSelect.value = authMode;
+
+								console.log(authMode);
+							}
+						</script>
+						<select name="selectSsid" onchange="setSsid(this);">
+							<option>Select WiFi SSID</option>
+							[SSID_OPTIONS]
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>SSID:</td>
+					<td><input type="text" name="inputSsid" id="ssidInput" value="[SSID]"></td>
+				</tr>
+				<tr>
+					<td>Password::</td>
+					<td><input type="password" name="password" value="[PASSWORD]"></td>
+				</tr>
+				<tr>
+					<td>
+						Auth Mode:
+					</td>
+					<td>
+						<select name="authMode" id="authMode">
+							<option>Select Auth Mode</option>
+							<option value="OPEN" [OPEN_SELECTED] >Open</option>
+							<option value="WEP" [WEP_SELECTED] >WEP</option>
+							<option value="WPA_PSK" [WPA_PSK_SELECTED] >WPA Pre Shared Key (PSK)</option>
+							<option value="WPA2_PSK" [WPA2_PSK_SELECTED] >WPA2 Pre Shared Key (PSK)</option>
+							<option value="WPA_WPA2_PSK" [WPA_WPA2_PSK_SELECTED] >WPA &amp; WPA2 Pre Shared Key (PSK)</option>
+							<option value="WPA2_ENTERPRISE" [WPA2_ENTERPRISE_SELECTED] >WPA2 Enterprise</option>
+							<option value="WPA3_PSK" [WPA3_PSK_SELECTED] >WPA3 Pre Shared Key (PSK)</option>
+							<option value="WPA2_WPA3_PSK" [WPA2_WPA3_PSK_SELECTED] >WPA2 &amp; WPA3 Pre Shared Key (PSK)</option>
+						</select>
+					</td>
+				</tr>
+				<tr colspan="2">
+					<td><input type="submit" value="Save WiFi Config"></td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>
