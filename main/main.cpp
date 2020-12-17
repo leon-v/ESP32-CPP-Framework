@@ -4,8 +4,6 @@
 #include "Nvs.hpp"
 #include "Wifi.hpp"
 #include "HttpServer.hpp"
-#include "Json.hpp"
-#include "Gpio.hpp"
 
 #include "HttpWifiConfig.hpp"
 #include "clearNvsButton.hpp"
