@@ -93,4 +93,9 @@ class Spi{
 	void queue(){
 		ESP_ERROR_CHECK(spi_device_queue_trans(this->device, &this->transaction, portMAX_DELAY));
 	}
+
+	void getResult(){
+		spi_transaction_t* rxTransaction;
+		ESP_ERROR_CHECK_WITHOUT_ABORT(spi_device_get_trans_result(this->device, &rxTransaction, 500 / portTICK_RATE_MS));
+	}
 };
