@@ -4,7 +4,7 @@ file(GLOB txt_files "*.bin.txt" "*.bin.html")
 idf_component_register(
 	SRCS ${src_files}
 	INCLUDE_DIRS "."
-	REQUIRES Exceptions Nvs Wifi HttpServer Gpio Spi
+	REQUIRES Exceptions Nvs Wifi HttpServer Gpio Spi Apa102
 	EMBED_TXTFILES ${txt_files}
 )
 

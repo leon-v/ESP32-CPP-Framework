@@ -57,10 +57,20 @@ class Spi{
 
 	SpiConfig config;
 	spi_device_handle_t device;
-	int dmaChannel = 1;
-	spi_transaction_t transaction;
+	int dmaChannel = 2;
+	spi_transaction_t transaction = {
+		.flags = 0,
+		.cmd = 0,
+		.addr = 0,
+		.length = 0,
+		.rxlength = 0,
+		.user = NULL,
+		.tx_buffer = NULL,
+		.rx_buffer = NULL
+	};
 
 	Spi(SpiConfig config){
+
 		this->config = config;
 
 		Spi();
@@ -72,22 +82,15 @@ class Spi{
 		ESP_ERROR_CHECK(spi_bus_add_device(HSPI_HOST, &this->config.deviceConfiguration, &this->device));
 	}
 
-	void transfer(uint8_t* sendBuffer, size_t length){
+	void setTxBuffer(void *txBuffer){
+		this->transaction.tx_buffer = txBuffer;
+	}
 
-		if (length <= 0){
-			return;
-		}
-
-		memset(&this->transaction, 0, sizeof(this->transaction)); 
-		
+	void setLengthBytes(size_t length){
 		this->transaction.length = length * 8;
+	}
 
-		this->transaction.tx_buffer = sendBuffer;
-		this->transaction.rx_buffer = sendBuffer;
-
-		//Still not sure what D/C is
-		this->transaction.user = (void*) 1; //D/C needs to be set to 1
-
-		ESP_ERROR_CHECK(spi_device_polling_transmit(this->device, &this->transaction));
+	void queue(){
+		ESP_ERROR_CHECK(spi_device_queue_trans(this->device, &this->transaction, portMAX_DELAY));
 	}
 };
