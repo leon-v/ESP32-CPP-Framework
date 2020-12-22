@@ -25,7 +25,7 @@ class SpiConfig {
 		.intr_flags = 0
 	};
 
-	spi_device_interface_config_t deviceConfiguration ={
+	spi_device_interface_config_t deviceConfiguration = {
 		.command_bits = 0,
 		.address_bits = 0,
 		.dummy_bits = 0,
@@ -33,11 +33,11 @@ class SpiConfig {
 		.duty_cycle_pos = 128,
 		.cs_ena_pretrans = 16,
 		.cs_ena_posttrans = 16,
-		.clock_speed_hz = 10*1000*1000,           	//Clock out at 10 MHz
-		.input_delay_ns = 0,
+		.clock_speed_hz = 1000*1000,           	//Clock out in MHz
+		.input_delay_ns = 1,
 		.spics_io_num = PIN_NUM_CS,               	//CS pin
 		.flags = 0,
-		.queue_size = 1,                          	//We want to be able to queue 7 transactions at a time
+		.queue_size = 1,                          	//We want to be able to queue n transactions at a time
 		.pre_cb = SpiConfig::preTransferCallback,	//Specify pre-transfer callback to handle D/C line
 		.post_cb = SpiConfig::postTransferCallback
 	};

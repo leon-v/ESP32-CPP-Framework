@@ -12,7 +12,7 @@ class Json {
 
 	public:
 	string tag = "Json";
-	cJSON *pCJson;
+	cJSON *pCJson = NULL;
 	
 	Json(cJSON* json){
 		this->pCJson = json;
@@ -26,6 +26,11 @@ class Json {
 	}
 
 	~Json(){
+
+		if (this->pCJson == NULL){
+			return;
+		}
+
 		cJSON_Delete(this->pCJson);
 	}
 
