@@ -40,25 +40,28 @@ class HttpApa102{
 			}
 
 			
-			int count = -1;
-			int index = 0;
+			int index = -1;
 			cJSON* item;
 			cJSON* value;
 			apa102_levels_t* led;
 			cJSON_ArrayForEach(item, json) {
 
-				count++;
+				index++;
 
 				if (!cJSON_IsObject(item)) {
 					continue;
 				}
 
+				value = cJSON_GetObjectItemCaseSensitive(item, "cl");
+				if (cJSON_IsNumber(value)){
+					if (value){
+						this->httpApa102->apa102Strip->clear();
+					}
+				}
+
 				value = cJSON_GetObjectItemCaseSensitive(item, "i");
 				if (cJSON_IsNumber(value)){
 					index = value->valueint;
-				}
-				else{
-					index = count;
 				}
 
 				led = this->httpApa102->apa102Strip->getLed(index);
@@ -67,7 +70,7 @@ class HttpApa102{
 					continue;
 				}
 
-				led->global = 2 | 0b11100000;
+				led->global = 3 | 0b11100000;
 
 				value = cJSON_GetObjectItemCaseSensitive(item, "gl");
 				if (cJSON_IsNumber(value)){
@@ -89,7 +92,7 @@ class HttpApa102{
 					led->blue = value->valueint;
 				}
 
-				ESP_LOGI("HA", "I: %d, R: %d, G: %d, B:%d", index, led->red, led->green, led->blue);
+				// ESP_LOGI("HA", "I: %d, R: %d, G: %d, B:%d", index, led->red, led->green, led->blue);
 			}
 
 			cJSON_Delete(json);

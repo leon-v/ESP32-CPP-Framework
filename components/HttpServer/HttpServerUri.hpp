@@ -23,7 +23,7 @@ class HttpServerUri{
 		this->init();
 	}
 
-	HttpServerUri(string path){
+	HttpServerUri(string path){ 
 		this->path = path;
 		this->uri.method = HTTP_GET;
 

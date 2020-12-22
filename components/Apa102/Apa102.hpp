@@ -35,13 +35,9 @@ class Apa102Strip{
 
 		assert(this->spiBuffer != NULL);
 
-		memset(this->spiBuffer, 0, this->spiBufferLength);
-
 		this->ledBuffer =  &this->spiBuffer[1];
 
-		for (int i = 0; i < this->length; i++){
-			this->setLedGlobal(i, 5);
-		}
+		this->clear();
 
 		this->initSpi();
 
@@ -51,6 +47,15 @@ class Apa102Strip{
 
 	~Apa102Strip(){
 		heap_caps_free(this->spiBuffer);
+	}
+
+	void clear(){
+
+		memset(this->spiBuffer, 0, this->spiBufferLength);
+
+		for (int i = 0; i < this->length; i++){
+			this->setLedGlobal(i, 5);
+		}
 	}
 
 	void setLed(int index, uint8_t global, uint8_t red, uint8_t green, uint8_t blue) {
